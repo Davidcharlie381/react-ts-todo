@@ -8,7 +8,10 @@ const App: FC = () => {
   const [activeTab, setActiveTab] = useState("all");
   const todoContext = useTodoContext();
 
-  const { todoState, dispatch } = todoContext;
+  const {
+    todoState,
+    dispatch,
+  } = todoContext;
 
   const active = todoState.filter((item) => item.completed === false);
   const completed = todoState.filter((item) => item.completed === true);
@@ -25,7 +28,7 @@ const App: FC = () => {
           </div>
         )}
         {activeTab === "all" &&
-          todoState.map((todo: Todo) => (
+        todoState.map((todo: Todo) => (
             <TodoItem
               key={todo.id}
               id={todo.id}
@@ -52,11 +55,14 @@ const App: FC = () => {
             />
           ))}
         {completed.length > 0 && activeTab === "completed" && (
-          <button onClick={() => {
-            if (confirm("Are you sure to delete completed tasks?")) {
-              dispatch({type: "DELETE_ALL", payload: {}})
-            }
-          }} className=" float-right px-5 h-10 rounded-md bg-red-400 mt-3 text-white">
+          <button
+            onClick={() => {
+              if (confirm("Are you sure to delete completed tasks?")) {
+                dispatch({ type: "DELETE_ALL" });
+              }
+            }}
+            className=" float-right px-5 h-10 rounded-md bg-red-400 mt-3 text-white"
+          >
             Delete all
           </button>
         )}
